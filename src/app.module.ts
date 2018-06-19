@@ -6,7 +6,6 @@ import {
 } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
-import { DefaultController } from './controllers/default/default.controller';
 import { NotificationsController } from './controllers/notifications/notifications.controller';
 import { UsersController } from './controllers/users/users.controller';
 
@@ -14,7 +13,6 @@ import { LoggerMiddleware } from './middlewares/logger/logger.middleware';
 
 import { UserSchema } from './schemas/user.schema';
 
-import { DefaultService } from './services/default/default.service';
 import { NotificationsService } from './services/notifications/notifications.service';
 import { UsersService } from './services/users/users.service';
 import { AmqpNotificationsService } from 'services/notifications/amqpNotifications.service';
@@ -24,13 +22,8 @@ import { AmqpNotificationsService } from 'services/notifications/amqpNotificatio
     MongooseModule.forRoot('mongodb://localhost:/nest'),
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
   ],
-  controllers: [UsersController, NotificationsController, DefaultController],
-  providers: [
-    UsersService,
-    NotificationsService,
-    AmqpNotificationsService,
-    DefaultService,
-  ],
+  controllers: [UsersController, NotificationsController],
+  providers: [UsersService, NotificationsService, AmqpNotificationsService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

@@ -13,19 +13,4 @@ export class NotificationsController {
   sendMail(@Param('locationId') locationId, @Param('userId') userId) {
     return this.notificationsService.sendMail(locationId, userId);
   }
-
-  @Delete()
-  delete() {
-    throw new Error('Not yet implemented');
-  }
-
-  @Get(':id')
-  findOne() {
-    throw new Error('Not yet implemented');
-  }
-
-  @Put(':id')
-  update() {
-    throw new Error('Not yet implemented');
-  }
 }
