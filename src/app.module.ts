@@ -1,4 +1,9 @@
-import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
+import {
+  Module,
+  NestModule,
+  MiddlewareConsumer,
+  RequestMethod,
+} from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { DefaultController } from './controllers/default/default.controller';
@@ -12,20 +17,18 @@ import { UserSchema } from './schemas/user.schema';
 import { DefaultService } from './services/default/default.service';
 import { NotificationsService } from './services/notifications/notifications.service';
 import { UsersService } from './services/users/users.service';
+import { AmqpNotificationsService } from 'services/notifications/amqpNotifications.service';
 
 @Module({
   imports: [
     MongooseModule.forRoot('mongodb://localhost:/nest'),
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
   ],
-  controllers: [
-    UsersController,
-    NotificationsController,
-    DefaultController,
-  ],
+  controllers: [UsersController, NotificationsController, DefaultController],
   providers: [
     UsersService,
     NotificationsService,
+    AmqpNotificationsService,
     DefaultService,
   ],
 })
