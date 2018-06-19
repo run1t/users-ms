@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import * as amqp from 'amqplib';
 import { NotificationsService } from './notifications.service';
 
@@ -7,7 +7,10 @@ export class AmqpNotificationsService {
   constructor(private readonly notificationsServices: NotificationsService) {
     this.initNotification()
       .then(() => {
-        console.log('Notification queue ready !! ');
+        Logger.log(
+          'Amqp Notification service is ready',
+          'AmqpNotificationService',
+        );
       })
       .catch(err => {
         console.log('error', err);
