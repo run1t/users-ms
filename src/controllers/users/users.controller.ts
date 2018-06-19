@@ -1,5 +1,5 @@
 import { UsersService } from './../../services/users/users.service';
-import { Controller, Get, Post, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Post, Delete, Put, Body, Param } from '@nestjs/common';
 
 @Controller('users')
 export class UsersController {
@@ -9,27 +9,26 @@ export class UsersController {
 
   @Get()
   findAll() {
-    // throw new Error('Not yet implemented');
     return this.usersService.findAll();
   }
 
   @Post()
-  create() {
-    throw new Error('Not yet implemented');
+  create(@Body() user) {
+    return this.usersService.create(user);
   }
 
-  @Delete()
-  delete() {
-    throw new Error('Not yet implemented');
+  @Delete(':id')
+  delete(@Param('id') id) {
+    return this.usersService.delete(id);
   }
 
   @Get(':id')
-  findOne() {
-    throw new Error('Not yet implemented');
+  findOne(@Param('id') id) {
+    return this.usersService.findOne(id);
   }
 
   @Put(':id')
-  update() {
-    throw new Error('Not yet implemented');
+  update(@Param('id') id, @Body() update) {
+    return this.usersService.update(id, update);
   }
 }
