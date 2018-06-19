@@ -5,30 +5,15 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-
-import { NotificationsController } from 'controllers/notifications/notifications.controller';
-import { UsersController } from 'controllers/users/users.controller';
-
-import { LoggerMiddleware } from 'middlewares/logger/logger.middleware';
-
-import { UserSchema } from 'schemas/user.schema';
-
-import { NotificationsService } from 'services/notifications/notifications.service';
-import { UsersService } from 'services/users/users.service';
-import { AmqpNotificationsService } from 'services/notifications/amqpNotifications.service';
+import { LoggerMiddleware } from '_middlewares/logger/logger.middleware';
+import { NotificationsController } from 'notifications/notifications.controller';
+import { UsersController } from 'users/users.controller';
+import { UsersService } from 'users/users.service';
+import { NotificationsService } from 'notifications/services/notifications.service';
+import { AmqpNotificationsService } from 'notifications/services/amqpNotifications.service';
+import { UsersModule } from 'users/users.module';
 
 @Module({
-  imports: [
-    MongooseModule.forRoot('mongodb://localhost:/nest'),
-    MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
-  ],
-  controllers: [UsersController, NotificationsController],
-  providers: [UsersService, NotificationsService, AmqpNotificationsService],
+  imports: [UsersModule],
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(LoggerMiddleware)
-      .forRoutes(NotificationsController, UsersController);
-  }
-}
+export class AppModule {}

@@ -1,12 +1,18 @@
-import { UserModel } from './../../models/user.model';
-import { UsersService } from './../../services/users/users.service';
-import { Controller, Get, Post, Delete, Put, Body, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Delete,
+  Put,
+  Body,
+  Param,
+} from '@nestjs/common';
+import { UsersService } from './users.service';
+import { UserModel } from './models/users.model';
 
 @Controller('users')
 export class UsersController {
-  constructor(
-    private usersService: UsersService,
-  ) { }
+  constructor(private readonly usersService: UsersService) {}
 
   @Get()
   findAll() {
