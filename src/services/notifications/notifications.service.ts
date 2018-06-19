@@ -3,10 +3,10 @@ import { Injectable } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
 
 import { UsersService } from '../users/users.service';
+import { TrackingDto } from './dto/tracking.dto';
 
 @Injectable()
 export class NotificationsService {
-  // create reusable transporter object using the default SMTP transport
   transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -17,15 +17,19 @@ export class NotificationsService {
 
   constructor(private usersService: UsersService) {}
 
-  async sendMail(locationId, userId) {
+  async sendMail(tracking: TrackingDto, userId: string) {
     const user = await this.usersService.findOne(userId);
 
     const mailOptions = {
-      from: '"Fred Foo 👻" <foo@example.com>',
+      from: '"Package Deliverer 📦" <package@deliverer.com>',
       to: user.email,
-      subject: 'Hello ✔',
-      text: 'Hello world?',
-      html: '<b>Hello world?</b>',
+      subject: `Your package ${tracking.name} is now in ${tracking.location}`,
+      text: `Hi ${user.name} \n Your package ${tracking.name} is now in ${
+        tracking.location
+      }`,
+      html: `Hi ${user.name} <br> Your package ${tracking.name} is now in ${
+        tracking.location
+      }`,
     };
 
     return this.transporter.sendMail(mailOptions);

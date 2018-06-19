@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import * as amqp from 'amqplib';
 import { NotificationsService } from './notifications.service';
+import { AmqpNotificationDto } from './dto/amqpNotification.dto';
 
 @Injectable()
 export class AmqpNotificationsService {
@@ -20,11 +21,17 @@ export class AmqpNotificationsService {
   async initNotification() {
     const connection = await amqp.connect('amqp://localhost');
     const chan = await connection.createChannel();
-    chan.assertQueue('hello');
+    chan.assertQueue('Delivery mail');
     chan.consume(
-      'hello',
+      'Delivery mail',
       message => {
-        this.notificationsServices.sendMail('Yop', 'user');
+        const decodedMessage = JSON.parse(
+          message.content.toString(),
+        ) as AmqpNotificationDto;
+        this.notificationsServices.sendMail(
+          decodedMessage.tracking,
+          decodedMessage.user.id,
+        );
       },
       { noAck: true },
     );
