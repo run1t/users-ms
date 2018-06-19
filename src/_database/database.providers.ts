@@ -5,6 +5,6 @@ export const databaseProviders = [
   {
     provide: DB_TOKEN,
     useFactory: async (): Promise<typeof mongoose> =>
-      await mongoose.connect('mongodb://localhost/nest'),
+      await mongoose.connect('mongodb://mongodb/nest'),
   },
 ];

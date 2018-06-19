@@ -19,7 +19,7 @@ export class AmqpNotificationsService {
   }
 
   async initNotification() {
-    const connection = await amqp.connect('amqp://localhost');
+    const connection = await amqp.connect('amqp://rabbitmq');
     const chan = await connection.createChannel();
     chan.assertQueue('Delivery mail');
     chan.consume(
