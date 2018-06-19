@@ -14,7 +14,11 @@ export class AmqpNotificationsService {
         );
       })
       .catch(err => {
-        console.log('error', err);
+        Logger.error(
+          'Amqp Notification is dead',
+          err,
+          'AmqpNotificationService',
+        );
       });
   }
 

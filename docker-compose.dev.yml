@@ -1,0 +1,26 @@
+version: '3'
+services:
+  users:
+    build:
+      context: .
+      dockerfile: ./dev.Dockerfile
+    ports:
+      - 3000:3000
+    depends_on:
+      - rabbitmq
+      - mongodb
+    volumes:
+      - ./src:/src
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: "rabbitmq"
+    ports: 
+      - 5672:5672
+      - 15672:15672
+  mongodb:
+    image: mongo:latest
+    container_name: "mongodb"
+    volumes:
+      - ./data/db:/data/db
+    ports:
+      - 27017:27017
