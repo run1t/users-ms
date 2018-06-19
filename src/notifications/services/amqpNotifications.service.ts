@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import * as amqp from 'amqplib';
 import { NotificationsService } from './notifications.service';
-import { AmqpNotificationDto } from './dto/amqpNotification.dto';
+import { AmqpNotificationDto } from '../models/amqpNotification.dto';
 
 @Injectable()
 export class AmqpNotificationsService {

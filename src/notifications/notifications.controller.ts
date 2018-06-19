@@ -1,7 +1,7 @@
-import { NotificationsService } from 'services/notifications/notifications.service';
 import { Controller, Post, Param, Body } from '@nestjs/common';
-import { AmqpNotificationsService } from 'services/notifications/amqpNotifications.service';
-import { TrackingDto } from 'services/notifications/dto/tracking.dto';
+import { NotificationsService } from './services/notifications.service';
+import { AmqpNotificationsService } from './services/amqpNotifications.service';
+import { TrackingDto } from './models/tracking.dto';
 
 @Controller('notifications')
 export class NotificationsController {
@@ -12,6 +12,6 @@ export class NotificationsController {
 
   @Post('send/:userId')
   sendMail(@Param('userId') userId, @Body() tracking: TrackingDto) {
-    return this.notificationsService.sendMail(location, userId);
+    return this.notificationsService.sendMail(tracking, userId);
   }
 }

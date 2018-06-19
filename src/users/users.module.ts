@@ -9,6 +9,7 @@ import { usersProviders } from './config/users.providers';
   imports: [DatabaseModule],
   controllers: [UsersController],
   providers: [UsersService, ...usersProviders],
+  exports: [UsersService],
 })
 export class UsersModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

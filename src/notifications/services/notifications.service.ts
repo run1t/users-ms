@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
 import * as nodemailer from 'nodemailer';
-
-import { UsersService } from '../users/users.service';
-import { TrackingDto } from './dto/tracking.dto';
+import { UsersService } from 'users/users.service';
+import { TrackingDto } from '../models/tracking.dto';
+import { UserModel } from 'users/models/users.model';
+import { User } from 'users/models/users.interface';
 
 @Injectable()
 export class NotificationsService {
@@ -24,12 +25,12 @@ export class NotificationsService {
       from: '"Package Deliverer 📦" <package@deliverer.com>',
       to: user.email,
       subject: `Your package ${tracking.name} is now in ${tracking.location}`,
-      text: `Hi ${user.name} \n Your package ${tracking.name} is now in ${
+      text: `Hi ${user.firstname} \n Your package ${tracking.name} is now in ${
         tracking.location
       }`,
-      html: `Hi ${user.name} <br> Your package ${tracking.name} is now in ${
-        tracking.location
-      }`,
+      html: `Hi ${user.firstname} <br> Your package ${
+        tracking.name
+      } is now in ${tracking.location}`,
     };
 
     return this.transporter.sendMail(mailOptions);
