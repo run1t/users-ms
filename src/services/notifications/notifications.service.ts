@@ -4,7 +4,6 @@ import * as nodemailer from 'nodemailer';
 
 import { UsersService } from '../users/users.service';
 
-
 @Injectable()
 export class NotificationsService {
   // create reusable transporter object using the default SMTP transport
@@ -16,25 +15,19 @@ export class NotificationsService {
     },
   });
 
-  constructor(
-    private usersService: UsersService,
-  ) { }
+  constructor(private usersService: UsersService) {}
 
   async sendMail(locationId, userId) {
     const user = await this.usersService.findOne(userId);
-    nodemailer.createTestAccount((err, account) => {
 
-      // setup email data with unicode symbols
-      const mailOptions = {
-        from: '"Fred Foo 👻" <foo@example.com>', // sender address
-        to: user.email, // list of receivers
-        subject: 'Hello ✔', // Subject line
-        text: 'Hello world?', // plain text body
-        html: '<b>Hello world?</b>', // html body
-      };
+    const mailOptions = {
+      from: '"Fred Foo 👻" <foo@example.com>',
+      to: user.email,
+      subject: 'Hello ✔',
+      text: 'Hello world?',
+      html: '<b>Hello world?</b>',
+    };
 
-      // send mail with defined transport object
-      return this.transporter.sendMail(mailOptions);
-    });
+    return this.transporter.sendMail(mailOptions);
   }
 }

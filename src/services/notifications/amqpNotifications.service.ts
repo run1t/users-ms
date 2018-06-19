@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import * as amqp from 'amqplib';
+import { NotificationsService } from './notifications.service';
 
 @Injectable()
 export class AmqpNotificationsService {
-  constructor() {
+  constructor(private readonly notificationsServices: NotificationsService) {
     this.initNotification()
       .then(() => {
         console.log('Notification queue ready !! ');
@@ -20,7 +21,7 @@ export class AmqpNotificationsService {
     chan.consume(
       'hello',
       message => {
-        console.log(message.content.toString());
+        this.notificationsServices.sendMail('Yop', 'user');
       },
       { noAck: true },
     );
