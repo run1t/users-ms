@@ -1,4 +1,14 @@
-# users-ms
+# Users Microservice
+
+Ce microservice a pour objectif la gestion des utilisateurs.
+
+Il permet de:
+
+- Créer des utilisateur
+- Lister des utilisateurs
+- Modifier des utilisateurs
+- Supprimer des utilisateurs
+- Envoyer des mails aux utilisateurs
 
 ## Description
 
@@ -7,7 +17,7 @@ Users Microservice
 ## Installation
 
 ```bash
-$ npm install
+$ yarn install
 ```
 
 ## Running the app
@@ -23,16 +33,4 @@ $ npm run start:dev
 npm run start:prod
 ```
 
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
 
